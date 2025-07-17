@@ -1,43 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Регистрация на конкурс</title>
-  <style>
-    body { font-family: sans-serif; padding: 30px; max-width: 600px; margin: auto; }
-    input, button, textarea {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      font-size: 16px;
-    }
-    button { background-color: #007bff; color: white; border: none; cursor: pointer; }
-  </style>
+  <title>Регистрация</title>
 </head>
 <body>
-  <h2>Регистрация на конкурс</h2>
-  <form id="registrationForm">
-    <input type="text" name="name" placeholder="Ваше имя" required />
-    <input type="text" name="instagram" placeholder="Instagram аккаунт" required />
-    <textarea name="receipt" placeholder="Номер или фото чека" required></textarea>
+  <h2>Форма регистрации на конкурс</h2>
+  <form action="https://telega-smoky.up.railway.app/api/submit" method="post">
+    <label>Имя: <input type="text" name="name" required></label><br>
+    <label>Инстаграм: <input type="text" name="instagram" required></label><br>
+    <label>Номер чека: <input type="text" name="receipt" required></label><br>
     <button type="submit">Сохранить</button>
   </form>
-  <p id="responseMessage"></p>
-
-  <script>
-    document.getElementById("registrationForm").onsubmit = async function (e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData);
-      const res = await fetch("/api/telegabot.py", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-      const result = await res.text();
-      document.getElementById("responseMessage").innerText = result;
-    };
-  </script>
 </body>
 </html>

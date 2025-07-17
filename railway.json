@@ -1,0 +1,6 @@
+{
+  "build": {
+    "builder": "Dockerfile"
+  },
+  "start": "python api/telegabot.py"
+}
