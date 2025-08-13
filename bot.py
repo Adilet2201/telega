@@ -1,7 +1,7 @@
 import telebot
 import os
 
-TOKEN = "7225020257:AAGfcF94WYhuqAA8NDb-DwYABj0zDKBkM-k"  #os.environ.get("Token")
+TOKEN = os.environ.get("TOKEN", "7225020257:AAGfcF94WYhuqAA8NDb-DwYABj0zDKBkM-k")
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
@@ -47,7 +47,3 @@ def show_program(call):
 
 def run_bot():
     bot.polling(non_stop=True)
-
-if __name__ == "__main__":
-    print("🤖 Бот запущен!")
-    run_bot()
