@@ -1,23 +1,8 @@
-import os
 import telebot
-from flask import Flask, request
+import os
 
 TOKEN = os.environ.get("Token")
 bot = telebot.TeleBot(TOKEN)
-app = Flask(__name__)
-
-@app.route('/' + TOKEN, methods=['POST'])
-def get_message():
-    json_str = request.get_data().decode('UTF-8')
-    update = telebot.types.Update.de_json(json_str)
-    bot.process_new_updates([update])
-    return "OK", 200
-
-@app.route('/')
-def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url=f"https://{os.environ.get('RAILWAY_APP_NAME')}.up.railway.app/{TOKEN}")
-    return "Webhook set", 200
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
@@ -60,5 +45,9 @@ def show_program(call):
     )
     bot.send_message(call.message.chat.id, program_text, parse_mode="Markdown")
 
+def run_bot():
+    bot.polling(non_stop=True)
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
+    print("🤖 Бот запущен!")
+    run_bot()

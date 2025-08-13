@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-# Читаем данные подключения из переменных окружения
+# Данные подключения к PostgreSQL
 DB_HOST = os.environ.get("DB_HOST", "hopper.proxy.rlwy.net")
 DB_PORT = os.environ.get("DB_PORT", "32436")
 DB_NAME = os.environ.get("DB_NAME", "railway")
