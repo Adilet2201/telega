@@ -6,6 +6,7 @@ from bot import run_bot
 
 app = Flask(__name__)
 
+# DB config from env
 DB_HOST = os.environ.get("DB_HOST", "hopper.proxy.rlwy.net")
 DB_PORT = os.environ.get("DB_PORT", "32436")
 DB_NAME = os.environ.get("DB_NAME", "railway")
@@ -43,13 +44,13 @@ def form():
 
         return f"""
         <div style='text-align:center; font-family:Arial; margin-top:50px;'>
-            <h2 style='color:green;'>✅ Клиент {name} добавлен!</h2>
-            <a href='/' style='display:inline-block; padding:10px 20px; background:#0d6efd; color:white; text-decoration:none; border-radius:5px;'>Добавить ещё</a>
+            <h2 style='color:green;'>✅ Клиент {name} қосылды!</h2>
+            <a href='/' style='display:inline-block; padding:10px 20px; background:#0d6efd; color:white; text-decoration:none; border-radius:5px;'>Тағы қосу</a>
         </div>
         """
 
     return render_template("form.html")
 
-if __name__ == "__main__":
+# Flask + Bot бірге жұмыс істеуі үшін Thread қолданамыз
+if __name__ != "__main__":
     threading.Thread(target=run_bot, daemon=True).start()
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
