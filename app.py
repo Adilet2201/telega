@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 import psycopg2
 import os
-
+import threading
+from bot import run_bot
 app = Flask(__name__)
 
 # Данные подключения к PostgreSQL
@@ -50,5 +51,6 @@ def form():
     return render_template("form.html")
 
 if __name__ == "__main__":
+    threading.Thread(target=run_bot, daemon=True).start()
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
